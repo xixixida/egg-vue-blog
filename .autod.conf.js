@@ -1,29 +1,27 @@
-'ues strict';
+'use strict';
 
 module.exports = {
   write: true,
-  plugin: 'autod-egg',
   prefix: '^',
-  devprefix: '^',
-  registry: 'https://r.cnpmjs.org',
-  exclude: [
-    'test/fixtures',
-    'examples',
-    "docs",
+  plugin: 'autod-egg',
+  test: [
+    'test',
+    'benchmark',
+  ],
+  dep: [
   ],
   devdep: [
+    'egg-ci',
+    'egg-bin',
     'autod',
     'autod-egg',
     'eslint',
     'eslint-config-egg',
-    'egg-bin',
-    'egg-plugin-puml',
-    'egg-view-nunjucks',
+    'webstorm-disable-index',
   ],
-  keep: [
+  exclude: [
+    './test/fixtures',
+    './dist',
   ],
-  semver: [
-    'koa-bodyparser@2',
-  ],
-  test: 'scripts',
 };
+
