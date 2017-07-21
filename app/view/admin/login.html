@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>后台登陆</title>
+	<link rel="stylesheet" href="../../public/css/bootstrap.min.css">
+	<script src="../../public/js/vue.js"></script>
+	<script src="../../public/js/vue-resource.js"></script>
+	<style>
+		body {
+			background: url(../../public/images/adminbg.jpg);
+		}
+		
+		.login {
+			height: 300px;
+			background: rgba(0, 0, 0, 0.1);
+			margin-top: 100px;
+		}
+		
+		form {
+			padding: 15px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container" id=app>
+		<div class="row">
+			<div class="col-md-3 col-md-offset-7">
+				<div class="login">
+					<form action="admin">
+						<h4>登录:</h4>
+						<br>
+						<input type="text" class="form-control" placeholder="用户名" v-model='admin'>
+						<br>
+						<input type="password" class="form-control" placeholder="密码" v-model='pwd'>
+						<br>
+						<button type="button" class="btn btn-primary  btn-block" v-on:click='a()'>登录</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	new Vue({
+		el: "#app",
+		data: {
+			admin: '',
+			pwd: '',
+		},
+		methods: {
+			a: function () {
+				var data = {
+					admin: this.admin,
+					pwd: this.pwd,
+					_csrf: '{{ctx.csrf}}'
+				}
+				this.$http.post('/login/yz', data).then(response => {
+					if (response.body.status == 0) {
+						alert('用户名或密码不正确')
+					} else {
+						location.href="/admin";
+					}
+
+				}, response => {
+					alert('服务器连接失败')
+				});
+			}
+		}
+	})
+</script>
+
+</html>
